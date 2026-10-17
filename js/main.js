@@ -121,8 +121,13 @@
     return;
   }
 
-  window.addEventListener("keydown", skip, { once: true });
-  window.addEventListener("pointerdown", skip, { once: true });
-
-  (isHome ? playHome() : playPage()).catch(showInstantly);
+  // On the first page of a visit, wait for the boot screen (layout.js) to
+  // go, so the intro isn't typed behind it, nor skipped by the key press
+  // that answered its "press any key for sound"
+  const booted = window.Boot ? window.Boot.done : Promise.resolve();
+  booted.then(() => {
+    window.addEventListener("keydown", skip, { once: true });
+    window.addEventListener("pointerdown", skip, { once: true });
+    (isHome ? playHome() : playPage()).catch(showInstantly);
+  });
 })();

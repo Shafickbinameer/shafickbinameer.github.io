@@ -66,6 +66,93 @@
   transition: none !important;
 }
 
+/* --- Boot screen (built by layout.js, once per visit) -------------------- */
+
+.booting body {
+  overflow: hidden;
+}
+
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: var(--paper);
+  transition:
+    opacity 0.45s var(--ease),
+    visibility 0s 0.45s;
+}
+
+/* Same paper grain as the page, so it feels like the page itself booting */
+.boot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--grain);
+  background-size: 220px 220px;
+  opacity: var(--grain-opacity);
+}
+
+.boot.is-done {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.boot__log {
+  position: relative;
+  z-index: 1;
+  width: min(30ch, 100%);
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+
+.boot__prompt,
+.boot__ok {
+  color: var(--accent);
+}
+
+/* Room for every line up front, so the progress bar never jumps down */
+.boot__lines {
+  min-height: calc(5 * 1.75em);
+  margin: 0.4rem 0 0.9rem;
+  padding: 0;
+  list-style: none;
+}
+
+.boot__lines li {
+  animation: boot-line 0.2s ease-out;
+}
+
+@keyframes boot-line {
+  from {
+    opacity: 0;
+    transform: translateX(-0.4rem);
+  }
+}
+
+.boot__hint {
+  margin-top: 1.25rem;
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+
+.boot__hint::after {
+  content: "_";
+  margin-left: 0.2ch;
+  animation: blink 1s steps(1) infinite;
+}
+
+.boot__hint.is-answered {
+  color: var(--accent);
+}
+
+.boot__hint.is-answered::after {
+  content: none;
+}
+
 /* --- Page transitions ---------------------------------------------------- */
 
 /* The menu and background stay put; only the page content moves.
