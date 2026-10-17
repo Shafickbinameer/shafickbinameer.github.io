@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects · Mohammed Shafick</title>
+    <meta name="description" content="Projects by Mohammed Shafick." />
+    <meta name="theme-color" content="#f1ebdf" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+    <!-- Share preview (WhatsApp, LinkedIn, X...). If the site lives somewhere other than https://shafick.dev, change it in the URLs below. -->
+    <link rel="canonical" href="https://shafick.dev/projects.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Shafick.dev" />
+    <meta property="og:title" content="Projects · Mohammed Shafick" />
+    <meta property="og:description" content="Projects by Mohammed Shafick." />
+    <meta property="og:url" content="https://shafick.dev/projects.html" />
+    <meta property="og:image" content="https://shafick.dev/assets/social-preview.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Shafick.dev in cream letters on a textured orange background" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Paper colour before any CSS loads, so a page change never flashes white -->
+    <style>
+      html { background: #f1ebdf; }
+      html[data-theme="dark"] { background: #1c1815; }
+    </style>
+
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        var t = localStorage.getItem("ms-theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        var s = localStorage.getItem("ms-sound");
+        if (s === "on" || s === "off") document.documentElement.dataset.sound = s;
+      } catch (e) {}
+    </script>
+
+    <!-- Fonts are served from /fonts (see css/fonts.css) -->
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+
+    <script src="js/sound.js" defer></script>
+    <script src="js/typer.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/transition.js" defer></script>
+    <script src="js/menu.js" defer></script>
+    <script src="js/terminal.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </head>
+
+  <body data-page="projects">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <main class="page" id="main">
+      <p class="page__path" aria-hidden="true">~/shafick/projects</p>
+      <h1 class="page__title" data-type>Projects</h1>
+
+      <ul class="ls" role="list" data-reveal>
+        <li class="ls__row">
+          <span class="ls__year">2026</span>
+          <span class="ls__head">
+            <a class="ls__name" href="projects/report-studio.html">report-studio</a>
+            <span class="status status--public">public</span>
+          </span>
+          <p class="ls__desc">An npm package for designing paginated reports in the browser and rendering them in any app, with zero runtime dependencies.</p>
+          <p class="ls__stack">javascript, node, react</p>
+        </li>
+        <li class="ls__row">
+          <span class="ls__year">2025</span>
+          <span class="ls__head">
+            <a class="ls__name" href="projects/bmh-learning-portfolio.html">bmh-learning-portfolio</a>
+            <span class="status status--private">private</span>
+          </span>
+          <p class="ls__desc">An e-portfolio for surgical trainees at Baby Memorial Hospital and RCSEd, where training and supervisor sign-off meet online.</p>
+          <p class="ls__stack">laravel, react</p>
+        </li>
+      </ul>
+    </main>
+
+    <!-- Corner name, top-right icons and menu: shared, see js/layout.js -->
+    <script src="js/layout.js"></script>
+  </body>
+</html>

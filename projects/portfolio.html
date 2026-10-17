@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>portfolio · Projects · Mohammed Shafick</title>
+    <meta name="description" content="My portfolio: a terminal on warm paper, hand-built with plain HTML, CSS and JavaScript." />
+    <meta name="theme-color" content="#f1ebdf" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png" />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+
+    <!-- Share preview (WhatsApp, LinkedIn, X...). If the site lives somewhere other than https://shafick.dev, change it in the URLs below. -->
+    <link rel="canonical" href="https://shafick.dev/projects/portfolio.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Shafick.dev" />
+    <meta property="og:title" content="portfolio · Projects · Mohammed Shafick" />
+    <meta property="og:description" content="My portfolio: a terminal on warm paper, hand-built with plain HTML, CSS and JavaScript." />
+    <meta property="og:url" content="https://shafick.dev/projects/portfolio.html" />
+    <meta property="og:image" content="https://shafick.dev/assets/projects/portfolio/social.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The portfolio home page: the name Mohammed Shafick in large monospace letters on cream paper" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Paper colour before any CSS loads, so a page change never flashes white -->
+    <style>
+      html { background: #f1ebdf; }
+      html[data-theme="dark"] { background: #1c1815; }
+    </style>
+
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        var t = localStorage.getItem("ms-theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        var s = localStorage.getItem("ms-sound");
+        if (s === "on" || s === "off") document.documentElement.dataset.sound = s;
+      } catch (e) {}
+    </script>
+
+    <!-- Fonts are served from /fonts (see css/fonts.css) -->
+    <link rel="stylesheet" href="../css/fonts.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+
+    <script src="../js/sound.js" defer></script>
+    <script src="../js/typer.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/transition.js" defer></script>
+    <script src="../js/menu.js" defer></script>
+    <script src="../js/terminal.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/shots.js" defer></script>
+  </head>
+
+  <body data-page="project" data-section="projects" data-root="../" data-path="~/shafick/projects/portfolio">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <main class="page" id="main">
+      <p class="page__path" aria-hidden="true">~/shafick/projects/portfolio</p>
+      <h1 class="page__title" data-type>portfolio</h1>
+
+      <div data-reveal>
+        <p class="prose project__lede">
+          This site. A personal portfolio that works like a terminal printed on warm paper, built by hand with plain
+          HTML, CSS and JavaScript: no framework and no build step.
+        </p>
+
+        <dl class="pairs project__facts">
+          <dt>year</dt>
+          <dd>2026</dd>
+          <dt>role</dt>
+          <dd>design and code</dd>
+          <dt>stack</dt>
+          <dd>html, css, javascript</dd>
+          <dt>links</dt>
+          <dd><a href="../index.html">live site</a>, <a href="https://github.com/Shafickbinameer" target="_blank" rel="noopener">code on github</a></dd>
+        </dl>
+
+        <figure class="shot shot--wide">
+          <div class="shot__screen">
+            <p class="shot__bar" aria-hidden="true"><span><span class="shot__prompt">$</span> open home.jpg</span><span>1440×900</span></p>
+            <div class="shot__view">
+              <img
+                src="../assets/projects/portfolio/home.jpg"
+                width="1440"
+                height="900"
+                alt="The home page: the name Mohammed Shafick in large condensed monospace letters on cream paper, a short tagline below, and the menu in the bottom-right corner"
+                decoding="async"
+              />
+            </div>
+          </div>
+          <figcaption>The home page. The name types itself in letter by letter, then slides up for the tagline.</figcaption>
+        </figure>
+
+        <section class="section" aria-labelledby="why-title">
+          <h2 class="section__title" id="why-title">Why I built it</h2>
+          <div class="prose">
+            <p>
+              I wanted a portfolio that feels like the tools I use every day: a terminal, a keyboard, a blinking cursor.
+              Most developer sites look the same, so I gave this one its own texture, its own sounds and a menu you can
+              drive from the keyboard.
+            </p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="how-title">
+          <h2 class="section__title" id="how-title">How it works</h2>
+          <div class="prose">
+            <ul class="project__list">
+              <li>A small typing engine reveals letters in step with the screen refresh, so typing stays smooth.</li>
+              <li>The menu behaves like a terminal program: a status line, a sliding marker, and j / k to move through it.</li>
+              <li>A real command line opens with the / key, with history, Tab completion and a few hidden extras.</li>
+              <li>Typing sounds are made in the browser with the Web Audio API, without any audio files.</li>
+              <li>The pixel cursors and paper grain are drawn in code; the only images are the logo and these screenshots.</li>
+            </ul>
+          </div>
+        </section>
+
+        <div class="shots">
+          <figure class="shot">
+            <div class="shot__screen">
+              <p class="shot__bar" aria-hidden="true"><span><span class="shot__prompt">$</span> open terminal.jpg</span><span>1440×900</span></p>
+              <div class="shot__view">
+                <img
+                  src="../assets/projects/portfolio/terminal.jpg"
+                  width="1440"
+                  height="900"
+                  alt="The terminal window open in the dark theme, listing the pages and social links"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+            <figcaption>The terminal, in the dark theme.</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="shot__screen">
+              <p class="shot__bar" aria-hidden="true"><span><span class="shot__prompt">$</span> open menu.jpg</span><span>1440×900</span></p>
+              <div class="shot__view">
+                <img
+                  src="../assets/projects/portfolio/menu.jpg"
+                  width="1440"
+                  height="900"
+                  alt="The projects page with the menu open, showing the hint '# who I am' beside the about item"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+            <figcaption>Pointing at a menu item shows a hint beside it.</figcaption>
+          </figure>
+        </div>
+
+        <section class="section" aria-labelledby="hard-title">
+          <h2 class="section__title" id="hard-title">What was hard</h2>
+          <div class="prose">
+            <p>
+              Keeping it smooth. My first version of the intro moved the name by re-laying out the page on every frame,
+              and it stuttered. Moving it with a GPU transform instead made it glide. Sound had its own catch: browsers
+              only allow it after a visitor's first click or key press, so the site waits for that before it makes a
+              sound.
+            </p>
+          </div>
+        </section>
+
+        <p class="project__back"><a href="../projects.html">$ cd ..</a> <span class="project__back-note">back to all projects</span></p>
+      </div>
+    </main>
+
+    <!-- Corner name, top-right icons and menu: shared, see js/layout.js -->
+    <script src="../js/layout.js"></script>
+  </body>
+</html>

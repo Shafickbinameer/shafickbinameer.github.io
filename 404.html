@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page not found · Mohammed Shafick</title>
+    <meta name="theme-color" content="#f1ebdf" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <meta name="robots" content="noindex" />
+
+    <!-- Paper colour before any CSS loads, so a page change never flashes white -->
+    <style>
+      html { background: #f1ebdf; }
+      html[data-theme="dark"] { background: #1c1815; }
+    </style>
+
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        var t = localStorage.getItem("ms-theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        var s = localStorage.getItem("ms-sound");
+        if (s === "on" || s === "off") document.documentElement.dataset.sound = s;
+      } catch (e) {}
+    </script>
+
+    <!-- Fonts are served from /fonts (see css/fonts.css) -->
+    <link rel="stylesheet" href="css/fonts.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+
+    <script src="js/sound.js" defer></script>
+    <script src="js/typer.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/transition.js" defer></script>
+    <script src="js/menu.js" defer></script>
+    <script src="js/terminal.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </head>
+
+  <body data-page="404">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <main class="page" id="main">
+      <p class="page__path error__cmd" aria-hidden="true">~/shafick $ <span data-missing-path>open page</span></p>
+      <h1 class="page__title" data-type>Command not found</h1>
+
+      <div class="prose" data-reveal>
+        <p>There's no page at this address. It may have moved, or the link has a typo.</p>
+        <p><a href="index.html">Go to the home page</a> or pick a page from the menu.</p>
+      </div>
+    </main>
+
+    <script>
+      document.querySelector("[data-missing-path]").textContent = "open " + location.pathname;
+    </script>
+
+    <!-- Corner name, top-right icons and menu: shared, see js/layout.js -->
+    <script src="js/layout.js"></script>
+  </body>
+</html>

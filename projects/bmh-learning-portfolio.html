@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>bmh-learning-portfolio · Projects · Mohammed Shafick</title>
+    <meta name="description" content="An online e-portfolio for surgical trainees at Baby Memorial Hospital and RCSEd: assessments, logbooks and supervisor sign-off in one place." />
+    <meta name="theme-color" content="#f1ebdf" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png" />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+
+    <!-- Share preview (WhatsApp, LinkedIn, X...). If the site lives somewhere other than https://shafick.dev, change it in the URLs below. -->
+    <link rel="canonical" href="https://shafick.dev/projects/bmh-learning-portfolio.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Shafick.dev" />
+    <meta property="og:title" content="bmh-learning-portfolio · Projects · Mohammed Shafick" />
+    <meta property="og:description" content="An online e-portfolio for surgical trainees at Baby Memorial Hospital and RCSEd: assessments, logbooks and supervisor sign-off in one place." />
+    <meta property="og:url" content="https://shafick.dev/projects/bmh-learning-portfolio.html" />
+    <meta property="og:image" content="https://shafick.dev/assets/social-preview.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Shafick.dev in cream letters on a textured orange background" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Paper colour before any CSS loads, so a page change never flashes white -->
+    <style>
+      html { background: #f1ebdf; }
+      html[data-theme="dark"] { background: #1c1815; }
+    </style>
+
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        var t = localStorage.getItem("ms-theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        var s = localStorage.getItem("ms-sound");
+        if (s === "on" || s === "off") document.documentElement.dataset.sound = s;
+      } catch (e) {}
+    </script>
+
+    <!-- Fonts are served from /fonts (see css/fonts.css) -->
+    <link rel="stylesheet" href="../css/fonts.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+
+    <script src="../js/sound.js" defer></script>
+    <script src="../js/typer.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/transition.js" defer></script>
+    <script src="../js/menu.js" defer></script>
+    <script src="../js/terminal.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/shots.js" defer></script>
+  </head>
+
+  <body data-page="project" data-section="projects" data-root="../" data-path="~/shafick/projects/bmh-learning-portfolio">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <main class="page" id="main">
+      <p class="page__path" aria-hidden="true">~/shafick/projects/bmh-learning-portfolio</p>
+      <h1 class="page__title" data-type>bmh-learning-portfolio</h1>
+
+      <div data-reveal>
+        <p class="prose project__lede">
+          The BMHRCSEd Learning Portfolio: an online e-portfolio for surgical trainees at Baby Memorial Hospital, run
+          with the Royal College of Surgeons of Edinburgh. Trainees record their training, supervisors review and sign
+          it off, and programme directors follow everyone's progress in one place.
+        </p>
+
+        <dl class="pairs project__facts">
+          <dt>year</dt>
+          <dd>2025</dd>
+          <dt>status</dt>
+          <dd><span class="status status--private">private</span> code not public</dd>
+          <dt>role</dt>
+          <dd>front-end development</dd>
+          <dt>stack</dt>
+          <dd>laravel, react, vite</dd>
+        </dl>
+
+        <figure class="shot shot--wide">
+          <div class="shot__screen">
+            <p class="shot__bar" aria-hidden="true"><span><span class="shot__prompt">$</span> open dashboard.jpg</span><span>1920×1080</span></p>
+            <div class="shot__view">
+              <img
+                src="../assets/projects/bmh-learning-portfolio/main.jpg"
+                width="1920"
+                height="1080"
+                alt="The trainee dashboard: a Work Based Assessment panel listing AOA, CBD, CEX, DOPs, MSF and PBA with red and green counts, beside panels for the current placement and ARCPs"
+                decoding="async"
+              />
+            </div>
+          </div>
+          <figcaption>The trainee dashboard. Green counts are assessments a trainer has validated, red ones are still waiting.</figcaption>
+        </figure>
+
+        <section class="section" aria-labelledby="why-title">
+          <h2 class="section__title" id="why-title">Why it was built</h2>
+          <div class="prose">
+            <p>
+              Surgical training runs on evidence: assessments, logbooks, reflections and supervisor feedback, collected
+              over years and reviewed at each yearly progression check. On paper and in spreadsheets it is hard to see
+              where a trainee stands. This portfolio puts the whole record online, so learning and sign-off happen in
+              the same place.
+            </p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="how-title">
+          <h2 class="section__title" id="how-title">How it works</h2>
+          <div class="prose">
+            <ul class="project__list">
+              <li>Four roles, each with its own dashboard: trainee, trainer, training programme director and admin.</li>
+              <li>Trainees log workplace-based assessments: case-based discussions, direct observation of procedural skills, procedure-based assessments, clinical evaluations, audits and journal entries.</li>
+              <li>Trainers see the trainees assigned to them, comment on their work and validate submissions.</li>
+              <li>Learning agreements, placements, a surgical logbook and multi-source feedback from a chosen panel of colleagues.</li>
+              <li>It all builds up to the Annual Review of Competence Progression (ARCP), where a panel reviews the year.</li>
+              <li>A Laravel REST API behind a React single-page app. Admins manage hospitals, specialties, programmes, news and batch promotions.</li>
+            </ul>
+          </div>
+        </section>
+
+        <figure class="shot shot--wide">
+          <div class="shot__screen">
+            <p class="shot__bar" aria-hidden="true"><span><span class="shot__prompt">$</span> open login.jpg</span><span>1920×1080</span></p>
+            <div class="shot__view">
+              <img
+                src="../assets/projects/bmh-learning-portfolio/login.jpg"
+                width="1920"
+                height="1080"
+                alt="The landing page: a banner of a surgeon using a tablet in a hospital corridor, news cards about the e-portfolio launch, and an 'Enter your space' sign-in form"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+          <figcaption>The landing page, with news and updates from the admins next to the sign-in form.</figcaption>
+        </figure>
+
+        <p class="project__back"><a href="../projects.html">$ cd ..</a> <span class="project__back-note">back to all projects</span></p>
+      </div>
+    </main>
+
+    <!-- Corner name, top-right icons and menu: shared, see js/layout.js -->
+    <script src="../js/layout.js"></script>
+  </body>
+</html>

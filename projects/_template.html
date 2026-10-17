@@ -1,0 +1,167 @@
+<!doctype html>
+<!--
+  PROJECT PAGE TEMPLATE
+
+  To add a project:
+  1. Copy this file in the same folder and rename it, e.g. projects/my-app.html
+     (lowercase, dashes, no spaces). Files starting with "_" like this one
+     aren't published on GitHub Pages, so the template stays private.
+  2. Replace every "my-app" and every [SQUARE BRACKET] below.
+  3. Put the screenshots in assets/projects/my-app/ (JPG, about 1440x900,
+     under ~250 KB each). Set each <img>'s width/height to the image's
+     real size, so the page doesn't jump while it loads.
+  4. Make a 1200x630 social.jpg for the share preview (optional; you can
+     point og:image at assets/social-preview.jpg instead).
+  5. On projects.html, point the project's link at projects/my-app.html.
+
+  Delete any section you don't need. Delete this comment when done.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>my-app · Projects · Mohammed Shafick</title>
+    <meta name="description" content="[ONE SENTENCE: what it is and who it's for.]" />
+    <meta name="theme-color" content="#f1ebdf" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png" />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+
+    <!-- Share preview (WhatsApp, LinkedIn, X...). If the site lives somewhere other than https://shafick.dev, change it in the URLs below. -->
+    <link rel="canonical" href="https://shafick.dev/projects/my-app.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Shafick.dev" />
+    <meta property="og:title" content="my-app · Projects · Mohammed Shafick" />
+    <meta property="og:description" content="[SAME SENTENCE AS THE DESCRIPTION ABOVE.]" />
+    <meta property="og:url" content="https://shafick.dev/projects/my-app.html" />
+    <meta property="og:image" content="https://shafick.dev/assets/projects/my-app/social.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="[WHAT THE PREVIEW IMAGE SHOWS]" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Paper colour before any CSS loads, so a page change never flashes white -->
+    <style>
+      html { background: #f1ebdf; }
+      html[data-theme="dark"] { background: #1c1815; }
+    </style>
+
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        var t = localStorage.getItem("ms-theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        var s = localStorage.getItem("ms-sound");
+        if (s === "on" || s === "off") document.documentElement.dataset.sound = s;
+      } catch (e) {}
+    </script>
+
+    <!-- Fonts are served from /fonts (see css/fonts.css) -->
+    <link rel="stylesheet" href="../css/fonts.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+
+    <script src="../js/sound.js" defer></script>
+    <script src="../js/typer.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/transition.js" defer></script>
+    <script src="../js/menu.js" defer></script>
+    <script src="../js/terminal.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/shots.js" defer></script>
+  </head>
+
+  <!-- data-path is what the menu and terminal show as the current folder -->
+  <body data-page="project" data-section="projects" data-root="../" data-path="~/shafick/projects/my-app">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <main class="page" id="main">
+      <p class="page__path" aria-hidden="true">~/shafick/projects/my-app</p>
+      <h1 class="page__title" data-type>my-app</h1>
+
+      <div data-reveal>
+        <p class="prose project__lede">[TWO OR THREE LINES: what it is, who it's for, and the one thing that makes it interesting.]</p>
+
+        <dl class="pairs project__facts">
+          <dt>year</dt>
+          <dd>[2026]</dd>
+          <!-- status: status--public, status--private or status--ongoing. Use the same badge on projects.html. -->
+          <dt>status</dt>
+          <dd><span class="status status--public">public</span> [a few words, e.g. open source]</dd>
+          <dt>role</dt>
+          <dd>[e.g. solo project, design and code]</dd>
+          <dt>stack</dt>
+          <dd>[e.g. node, typescript, postgres]</dd>
+          <!-- Private projects: delete this "links" row, the live site and code aren't for sharing -->
+          <dt>links</dt>
+          <dd><a href="[https://live-link]" target="_blank" rel="noopener">live</a>, <a href="[https://github.com/...]" target="_blank" rel="noopener">code on github</a></dd>
+        </dl>
+
+        <!-- Main screenshot: shown wider than the text. The first image loads straight away. -->
+        <!-- Each screenshot sits in a terminal window: the bar shows the file name and its size. -->
+        <figure class="shot shot--wide">
+          <div class="shot__screen">
+            <p class="shot__bar" aria-hidden="true"><span><span class="shot__prompt">$</span> open main.jpg</span><span>1440×900</span></p>
+            <div class="shot__view">
+              <img src="../assets/projects/my-app/main.jpg" width="1440" height="900" alt="[DESCRIBE WHAT THE SCREENSHOT SHOWS]" decoding="async" />
+            </div>
+          </div>
+          <figcaption>[One line about what you're looking at.]</figcaption>
+        </figure>
+
+        <section class="section" aria-labelledby="why-title">
+          <h2 class="section__title" id="why-title">Why I built it</h2>
+          <div class="prose">
+            <p>[The problem, or the itch. Who had it, and why existing tools didn't solve it.]</p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="how-title">
+          <h2 class="section__title" id="how-title">How it works</h2>
+          <div class="prose">
+            <ul class="project__list">
+              <li>[A key decision and why you made it.]</li>
+              <li>[Another one.]</li>
+              <li>[A third, if it's worth telling.]</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Two screenshots side by side (stacked on phones). Later images load as you scroll. -->
+        <div class="shots">
+          <figure class="shot">
+            <div class="shot__screen">
+              <p class="shot__bar" aria-hidden="true"><span><span class="shot__prompt">$</span> open detail-1.jpg</span><span>1440×900</span></p>
+              <div class="shot__view">
+                <img src="../assets/projects/my-app/detail-1.jpg" width="1440" height="900" alt="[DESCRIBE IT]" loading="lazy" decoding="async" />
+              </div>
+            </div>
+            <figcaption>[Caption.]</figcaption>
+          </figure>
+          <figure class="shot">
+            <div class="shot__screen">
+              <p class="shot__bar" aria-hidden="true"><span><span class="shot__prompt">$</span> open detail-2.jpg</span><span>1440×900</span></p>
+              <div class="shot__view">
+                <img src="../assets/projects/my-app/detail-2.jpg" width="1440" height="900" alt="[DESCRIBE IT]" loading="lazy" decoding="async" />
+              </div>
+            </div>
+            <figcaption>[Caption.]</figcaption>
+          </figure>
+        </div>
+
+        <section class="section" aria-labelledby="hard-title">
+          <h2 class="section__title" id="hard-title">What was hard</h2>
+          <div class="prose">
+            <p>[One real problem you hit and how you solved it. Recruiters read this part most closely.]</p>
+          </div>
+        </section>
+
+        <p class="project__back"><a href="../projects.html">$ cd ..</a> <span class="project__back-note">back to all projects</span></p>
+      </div>
+    </main>
+
+    <!-- Corner name, top-right icons and menu: shared, see js/layout.js -->
+    <script src="../js/layout.js"></script>
+  </body>
+</html>

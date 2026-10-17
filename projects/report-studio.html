@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>report-studio · Projects · Mohammed Shafick</title>
+    <meta name="description" content="An npm package for designing paginated reports in the browser and rendering them in any app. Zero runtime dependencies, optional React components." />
+    <meta name="theme-color" content="#f1ebdf" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon-192.png" />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+
+    <!-- Share preview (WhatsApp, LinkedIn, X...). If the site lives somewhere other than https://shafick.dev, change it in the URLs below. -->
+    <link rel="canonical" href="https://shafick.dev/projects/report-studio.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Shafick.dev" />
+    <meta property="og:title" content="report-studio · Projects · Mohammed Shafick" />
+    <meta property="og:description" content="An npm package for designing paginated reports in the browser and rendering them in any app. Zero runtime dependencies, optional React components." />
+    <meta property="og:url" content="https://shafick.dev/projects/report-studio.html" />
+    <meta property="og:image" content="https://shafick.dev/assets/social-preview.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Shafick.dev in cream letters on a textured orange background" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Paper colour before any CSS loads, so a page change never flashes white -->
+    <style>
+      html { background: #f1ebdf; }
+      html[data-theme="dark"] { background: #1c1815; }
+    </style>
+
+    <script>
+      document.documentElement.classList.add("js");
+      try {
+        var t = localStorage.getItem("ms-theme");
+        if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        var s = localStorage.getItem("ms-sound");
+        if (s === "on" || s === "off") document.documentElement.dataset.sound = s;
+      } catch (e) {}
+    </script>
+
+    <!-- Fonts are served from /fonts (see css/fonts.css) -->
+    <link rel="stylesheet" href="../css/fonts.css" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+
+    <script src="../js/sound.js" defer></script>
+    <script src="../js/typer.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/transition.js" defer></script>
+    <script src="../js/menu.js" defer></script>
+    <script src="../js/terminal.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/shots.js" defer></script>
+  </head>
+
+  <body data-page="project" data-section="projects" data-root="../" data-path="~/shafick/projects/report-studio">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <main class="page" id="main">
+      <p class="page__path" aria-hidden="true">~/shafick/projects/report-studio</p>
+      <h1 class="page__title" data-type>report-studio</h1>
+
+      <div data-reveal>
+        <p class="prose project__lede">
+          An npm package for paginated reports. You draw a report once in a visual designer in the browser, it is
+          saved as plain JSON, and your app feeds it data at runtime to get a page-by-page viewer with zoom, search,
+          print and CSV export. No framework and no runtime dependencies; React components are included for apps that
+          want them.
+        </p>
+
+        <dl class="pairs project__facts">
+          <dt>year</dt>
+          <dd>2026</dd>
+          <dt>status</dt>
+          <dd><span class="status status--public">public</span> open source, MIT licence</dd>
+          <dt>role</dt>
+          <dd>author and maintainer</dd>
+          <dt>stack</dt>
+          <dd>javascript, node, react, vitest</dd>
+          <dt>links</dt>
+          <dd>
+            <a href="https://www.npmjs.com/package/report-studio" target="_blank" rel="noopener">npm</a>,
+            <a href="https://report-studio-docs.vercel.app" target="_blank" rel="noopener">docs</a>,
+            <a href="https://github.com/Shafickbinameer/report-studio" target="_blank" rel="noopener">code on github</a>
+          </dd>
+        </dl>
+
+        <!-- The designer, one tab per kind of item: see "Tabbed screenshots" in js/shots.js -->
+        <figure class="shot shot--wide" data-shot-tabs>
+          <div class="shot__screen">
+            <div class="shot__bar">
+              <span aria-hidden="true"><span class="shot__prompt">$</span> select <span data-shot-tab-name>table</span></span>
+              <span class="shot__tabs" role="tablist" aria-label="Item in the designer">
+                <button class="shot__tab" type="button" role="tab" id="rs-tab-table" aria-controls="rs-panel-table" aria-selected="true">table</button>
+                <button class="shot__tab" type="button" role="tab" id="rs-tab-text" aria-controls="rs-panel-text" aria-selected="false" tabindex="-1">text</button>
+                <button class="shot__tab" type="button" role="tab" id="rs-tab-image" aria-controls="rs-panel-image" aria-selected="false" tabindex="-1">image</button>
+                <button class="shot__tab" type="button" role="tab" id="rs-tab-box" aria-controls="rs-panel-box" aria-selected="false" tabindex="-1">box</button>
+                <button class="shot__tab" type="button" role="tab" id="rs-tab-line" aria-controls="rs-panel-line" aria-selected="false" tabindex="-1">line</button>
+              </span>
+            </div>
+            <div class="shot__view" role="tabpanel" id="rs-panel-table" aria-labelledby="rs-tab-table">
+              <img
+                src="../assets/projects/report-studio/designer-table.jpg"
+                width="1440"
+                height="900"
+                alt="The designer with the sales table selected: five columns on an A4 page, and the properties panel showing dataset 'sales', group by 'region', row height and header settings"
+                decoding="async"
+              />
+            </div>
+            <div class="shot__view" role="tabpanel" id="rs-panel-text" aria-labelledby="rs-tab-text" hidden>
+              <img
+                src="../assets/projects/report-studio/designer-text.jpg"
+                width="1440"
+                height="900"
+                alt="The designer with the company name text selected: its value is the placeholder {company.name}, with position, font, size, weight, alignment and colour in the panel"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="shot__view" role="tabpanel" id="rs-panel-image" aria-labelledby="rs-tab-image" hidden>
+              <img
+                src="../assets/projects/report-studio/designer-image.jpg"
+                width="1440"
+                height="900"
+                alt="The designer with the logo image selected: the panel shows the stored picture with Replace and Remove, a From data path, Fit, a description for screen readers, and its size"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="shot__view" role="tabpanel" id="rs-panel-box" aria-labelledby="rs-tab-box" hidden>
+              <img
+                src="../assets/projects/report-studio/designer-box.jpg"
+                width="1440"
+                height="900"
+                alt="The designer with the box behind the group header selected: the panel shows its position, border style, width, colour and corner radius, and its background fill"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="shot__view" role="tabpanel" id="rs-panel-line" aria-labelledby="rs-tab-line" hidden>
+              <img
+                src="../assets/projects/report-studio/designer-line.jpg"
+                width="1440"
+                height="900"
+                alt="The designer with the rule under the page header selected: the panel shows its direction, thickness, style and colour"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+          <figcaption>
+            <span data-shot-caption="table">A table reads one dataset from your data, here "sales", grouped by region, and splits across pages by itself.</span>
+            <span data-shot-caption="text" hidden>Text can mix plain words with placeholders like {company.name}, filled in from your data.</span>
+            <span data-shot-caption="image" hidden>An image is stored in the layout, or read from your data so each customer gets their own logo.</span>
+            <span data-shot-caption="box" hidden>A box draws an outline and a fill, here the shaded strip behind each group heading.</span>
+            <span data-shot-caption="line" hidden>A line is a rule across the page, with its own thickness, style and colour.</span>
+          </figcaption>
+        </figure>
+
+        <section class="section" aria-labelledby="why-title">
+          <h2 class="section__title" id="why-title">Why I built it</h2>
+          <div class="prose">
+            <p>
+              Business apps always end up needing printable reports: invoices, statements, sales summaries. The usual
+              answer is a heavy reporting server or hand-written print CSS that breaks the moment a table runs onto a
+              second page. I wanted the classic report designer workflow, with bands, groups and totals, as a small
+              library that runs in any web app.
+            </p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="how-title">
+          <h2 class="section__title" id="how-title">How it works</h2>
+          <div class="prose">
+            <ul class="project__list">
+              <li>One command, <code>npx report-studio design</code>, starts the designer on a local server that reads and writes report files in your project.</li>
+              <li>Reports are built from bands (page header, group header, detail, group footer, report footer, page footer), with text, tables, images, boxes and lines placed on them. The tabs above show each one in the designer.</li>
+              <li>Placeholders like <code>{customer.name}</code>, <code>{sum(sales.amount)}</code> and <code>Page {page} of {totalPages}</code> are filled in from your data at runtime.</li>
+              <li>Saving a report also writes a sample data file built from the layout, so it shows exactly what shape of data your app has to supply.</li>
+              <li>At runtime, <code>buildPages(layout, data)</code> paginates the report and <code>createViewer()</code> mounts the viewer. The renderer is plain DOM, so it works with or without React.</li>
+              <li>The designer can also be mounted inside your own app, saving through your API, so users can build their own reports.</li>
+            </ul>
+          </div>
+        </section>
+
+        <figure class="shot shot--wide">
+          <div class="shot__screen">
+            <p class="shot__bar" aria-hidden="true"><span><span class="shot__prompt">$</span> open preview/?report=sales-summary</span><span>1440×900</span></p>
+            <div class="shot__view">
+              <img
+                src="../assets/projects/report-studio/viewer.jpg"
+                width="1440"
+                height="900"
+                alt="The report viewer showing page 1 of 2 of a Northwind Traders sales summary, with sales grouped by region, order counts and subtotals, and search, zoom, print and export controls at the top"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+          <figcaption>The same report in the viewer, filled with data: grouped by region, with counts, subtotals and page numbers.</figcaption>
+        </figure>
+
+        <section class="section" aria-labelledby="hard-title">
+          <h2 class="section__title" id="hard-title">What was hard</h2>
+          <div class="prose">
+            <p>
+              The engine. Turning a layout and a pile of data into pages sounds simple until the rows don't fit: a table
+              has to split cleanly across pages and repeat its header, and a second table below it has to move down by
+              however far the first one really ran. Totals have to know which group and which dataset they belong to,
+              and <code>{totalPages}</code> can't be known until every page has been laid out.
+            </p>
+            <p>
+              So the engine runs as a pipeline of small stages, each with one job: resolve the placeholders, group the
+              rows, measure every band, then paginate and fill in page numbers last. Keeping the stages separate made
+              each one testable on its own, and a test suite of over 40 files keeps them honest.
+            </p>
+          </div>
+        </section>
+
+        <figure class="shot shot--wide">
+          <div class="shot__screen">
+            <p class="shot__bar" aria-hidden="true"><span><span class="shot__prompt">$</span> open report-studio-docs.vercel.app</span><span>1440×900</span></p>
+            <div class="shot__view">
+              <img
+                src="../assets/projects/report-studio/docs.jpg"
+                width="1440"
+                height="900"
+                alt="The Report Studio docs home page in a dark theme: the headline 'Paginated reports, drawn once and run anywhere.', a short description, the npm install command and Get started and Read the docs buttons"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+          <figcaption>The docs site, with a quick start and the full API.</figcaption>
+        </figure>
+
+        <p class="project__back"><a href="../projects.html">$ cd ..</a> <span class="project__back-note">back to all projects</span></p>
+      </div>
+    </main>
+
+    <!-- Corner name, top-right icons and menu: shared, see js/layout.js -->
+    <script src="../js/layout.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1365 @@
+/* ==========================================================================
+   Components: typing, hero, menu, pages
+   ========================================================================== */
+
+/* --- Typing ------------------------------------------------------------- */
+
+/* Hide text that is about to be typed until JS has split it into letters,
+   so it never flashes in full first. Without JS it simply shows. */
+.js [data-type]:not(.is-ready) {
+  visibility: hidden;
+}
+
+/* Every letter takes its final space from the start; typing only changes
+   opacity, so nothing on the page shifts while it types. */
+.typer__ch {
+  opacity: 0;
+  transition: opacity 0.12s ease-out;
+}
+
+.typer__ch.is-on {
+  opacity: 1;
+}
+
+.cursor {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 1em;
+  vertical-align: -0.14em;
+}
+
+.cursor::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0.08em;
+  width: 0.55em;
+  background: var(--accent);
+  animation: blink 1.05s steps(1, end) infinite;
+}
+
+.cursor.is-typing::after {
+  animation: none;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.js [data-reveal] {
+  opacity: 0;
+  transition: opacity 0.7s var(--ease);
+}
+
+.js [data-reveal].is-revealed {
+  opacity: 1;
+}
+
+/* Disables transitions for one frame when the intro is skipped instantly */
+.no-anim *,
+.no-anim *::before,
+.no-anim *::after {
+  transition: none !important;
+}
+
+/* --- Page transitions ---------------------------------------------------- */
+
+/* The menu and background stay put; only the page content moves.
+   transition.js adds .is-leaving, waits for page-out, then navigates. */
+.js main {
+  animation: page-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.is-leaving main {
+  animation: page-out 0.22s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+}
+
+/* --- Hero (home) -------------------------------------------------------- */
+
+.hero {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: var(--gutter);
+  padding-bottom: calc(var(--gutter) + 3rem);
+  text-align: center;
+}
+
+/* Always one line: on narrow screens the size scales with the viewport so
+   the whole name fits between the side gutters. main.js sets --name-chars
+   to the name's length; each letter is about 0.6em wide in this font
+   (0.62 leaves a little room). */
+.hero__name {
+  white-space: nowrap;
+  font-size: clamp(1.5rem, calc((100vw - 2 * var(--gutter)) / (var(--name-chars, 16) * 0.62)), 7rem);
+  font-weight: 700;
+  font-stretch: 80%;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+/* Hidden until the name has typed; showing it pushes the centred name up.
+   main.js animates that move with a transform. */
+.js .hero:not(.is-open) .hero__more {
+  display: none;
+}
+
+.hero__more {
+  display: grid;
+  gap: 0.35rem;
+  max-width: 64ch;
+  margin-inline: auto;
+  padding-top: clamp(1.5rem, 4vh, 2.5rem);
+  font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+}
+
+.hero__line--soft {
+  color: var(--ink-soft);
+}
+
+.hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 2rem;
+  margin-top: 1.75rem;
+  font-size: 0.875rem;
+}
+
+/* --- Menu --------------------------------------------------------------- */
+
+.menu {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 20;
+  padding: 0.75rem 0.9rem;
+  margin: -0.75rem -0.9rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  background: var(--menu-bg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-radius: 4px;
+}
+
+.js [data-page="home"] .menu {
+  opacity: 0;
+  transition: opacity 0.7s var(--ease);
+}
+
+.js [data-page="home"].is-ready .menu {
+  opacity: 1;
+}
+
+.menu__path {
+  margin-bottom: 0.5rem;
+  color: var(--ink-soft);
+}
+
+.menu__list {
+  padding: 0;
+  list-style: none;
+}
+
+.menu__link {
+  display: grid;
+  grid-template-columns: 1ch 1fr auto;
+  gap: 0.9ch;
+  width: 100%;
+  min-width: 15ch;
+  padding: 0.1rem 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: var(--cursor-link);
+}
+
+/* The ">" marks the page you are on; hovering previews it */
+.menu__link::before {
+  content: ">";
+  color: transparent;
+}
+
+.menu__link:hover {
+  color: var(--ink);
+}
+
+.menu__link:hover::before {
+  color: var(--ink-soft);
+}
+
+.menu__link[aria-current]::before {
+  color: var(--accent);
+}
+
+.menu__link[aria-current] .menu__label {
+  font-weight: 600;
+}
+
+.menu__key {
+  padding-left: 2ch;
+  color: var(--ink-soft);
+}
+
+/* --- Menu extras (added by menu.js) ------------------------------------- */
+
+/* Fixed width, so retyping the status line never resizes the menu */
+.menu.is-enhanced .menu__inner {
+  width: 26ch;
+}
+
+.menu__path {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* "# hint" just outside the menu's left edge, level with the item you
+   point at; menu.js sets --hint-y to that item's row */
+.menu__hint {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  margin-right: 0.4rem;
+  padding: 0.1rem 0.6rem;
+  border-radius: 3px;
+  background: var(--menu-bg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--ink-soft);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(0.5rem, var(--hint-y, 0));
+  transition:
+    opacity 0.2s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu__hint.is-shown {
+  opacity: 1;
+  transform: translate(0, var(--hint-y, 0));
+}
+
+.menu__hint.is-command {
+  color: var(--accent);
+}
+
+.menu.is-collapsed .menu__hint {
+  opacity: 0;
+}
+
+/* One ">" that slides between items, instead of one per item */
+.menu__body {
+  position: relative;
+}
+
+.menu.is-enhanced .menu__link::before {
+  color: transparent;
+}
+
+.menu__marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.1rem 0;
+  color: var(--accent);
+  pointer-events: none;
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.2s ease;
+}
+
+.menu__marker.is-hidden {
+  opacity: 0;
+}
+
+.menu__marker.no-anim {
+  transition: none;
+}
+
+/* The marker shows keyboard focus; the label underline backs it up */
+.menu.is-enhanced .menu__link:focus-visible {
+  outline: none;
+}
+
+.menu.is-enhanced .menu__link:focus-visible .menu__label {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.3em;
+}
+
+.menu__link.is-selected .menu__key {
+  color: var(--accent);
+}
+
+/* Progress bar (only on pages long enough to scroll) */
+.menu__meta {
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+
+.menu:not(.has-progress) .menu__meta {
+  display: none;
+}
+
+.menu__progress {
+  display: flex;
+  align-items: center;
+}
+
+.menu__bar {
+  display: flex;
+  flex: 1;
+  gap: 2px;
+  height: 0.75em;
+  margin: 0 0.4ch;
+}
+
+/* Empty cells use the same ░ shade as the scrollbar track */
+.menu__cell {
+  flex: 1;
+  background-image: repeating-conic-gradient(var(--scroll-shade) 0 25%, transparent 0 50%);
+  background-size: 3px 3px;
+}
+
+.menu__cell.is-on {
+  background: var(--accent);
+}
+
+.menu__pct {
+  min-width: 5ch;
+  text-align: right;
+}
+
+/* Folding: the menu shrinks to a one-line tab (while you scroll down on big
+   screens, until tapped on phones). The box resizes while the full menu and
+   the tab cross-fade, each sliding a little toward the corner as it goes. */
+.menu {
+  --fold-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu__fold {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  /* opening: the box grows first, the items fade in as it does */
+  transition:
+    grid-template-rows 0.45s var(--fold-ease),
+    opacity 0.3s ease 0.1s,
+    visibility 0s;
+}
+
+.menu__fold-inner,
+.menu__peek {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.menu__fold-inner {
+  transition: transform 0.45s var(--fold-ease);
+}
+
+.menu__peek-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s var(--fold-ease);
+}
+
+.menu__peek {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: var(--cursor-link);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-0.3rem);
+  transition:
+    opacity 0.15s ease,
+    transform 0.45s var(--fold-ease),
+    visibility 0s 0.15s;
+}
+
+.menu__peek-mark,
+.menu__peek-pct {
+  color: var(--accent);
+}
+
+/* closing: the items fade out quickly, then the box shrinks to the tab */
+.menu.is-collapsed .menu__fold {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.4s var(--fold-ease),
+    opacity 0.15s ease,
+    visibility 0s 0.4s;
+}
+
+.menu.is-collapsed .menu__fold-inner {
+  transform: translateY(0.5rem);
+}
+
+.menu.is-collapsed .menu__peek-wrap {
+  grid-template-rows: 1fr;
+}
+
+.menu.is-collapsed .menu__peek {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.25s ease 0.12s,
+    transform 0.45s var(--fold-ease),
+    visibility 0s;
+}
+
+/* menu.js sets this for a moment so a page can open already folded */
+.menu.no-fold-anim * {
+  transition: none !important;
+}
+
+/* Phones get the same menu as big screens, just clear of the home bar.
+   It starts folded there, so the full menu layout.js draws stays hidden
+   until menu.js has folded it, then the tab fades in with the page. */
+@media (max-width: 700px) {
+  .menu {
+    bottom: calc(var(--gutter) + env(safe-area-inset-bottom));
+  }
+
+  .js .menu:not(.is-enhanced) {
+    visibility: hidden;
+  }
+
+  .js .menu.is-enhanced {
+    animation: menu-in 0.45s var(--fold-ease) both;
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+}
+
+/* --- Cursor ---------------------------------------------------------------
+   Real system cursors with pixel-art images (defined in base.css), so they
+   move with the mouse with no lag: an arrow, an orange arrow over anything
+   clickable, and an I-beam over text. */
+
+html {
+  cursor: var(--cursor-arrow);
+}
+
+p,
+h1,
+h2,
+h3,
+li,
+dt,
+dd,
+input,
+textarea {
+  cursor: var(--cursor-text);
+}
+
+a,
+button,
+label,
+summary,
+[role="button"] {
+  cursor: var(--cursor-link);
+}
+
+/* --- Top-right tools: terminal + theme --------------------------------- */
+
+.tools {
+  position: fixed;
+  top: calc(var(--gutter) - 0.6rem);
+  right: calc(var(--gutter) - 0.6rem);
+  z-index: 20;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.js [data-page="home"] .tools {
+  opacity: 0;
+  transition: opacity 0.7s var(--ease);
+}
+
+.js [data-page="home"].is-ready .tools {
+  opacity: 1;
+}
+
+.tool {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  cursor: var(--cursor-link);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.tool[hidden] {
+  display: none;
+}
+
+.tool:hover,
+.tool:focus-visible {
+  border-color: var(--line);
+  background: var(--menu-bg);
+  color: var(--accent);
+}
+
+.tool svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* The half-filled circle turns over when the theme switches */
+.tool__theme-icon {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root[data-theme="dark"] .tool__theme-icon {
+  transform: rotate(180deg);
+}
+
+/* Speaker: sound waves when on, a cross when muted */
+:root[data-sound="off"] .tool__sound-on,
+:root:not([data-sound="off"]) .tool__sound-off {
+  display: none;
+}
+
+/* Label with the shortcut key, shown under the icon on hover/focus */
+.tool::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  right: 0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background: var(--menu-bg);
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  white-space: pre;
+  opacity: 0;
+  transform: translateY(-0.25rem);
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.tool:hover::after,
+.tool:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+
+/* Touch screens have no hover or keyboard: skip the labels */
+@media (hover: none) {
+  .tool::after {
+    content: none;
+  }
+}
+
+/* --- Terminal ----------------------------------------------------------- */
+
+.term {
+  width: min(72ch, calc(100vw - 2 * var(--gutter)));
+  height: min(60vh, 32rem);
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  box-shadow: 0 1.5rem 4rem var(--shadow);
+}
+
+.term[open] {
+  display: flex;
+  flex-direction: column;
+  animation: term-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.term.is-closing {
+  animation: term-out 0.16s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.term::backdrop {
+  background: rgb(28 24 21 / 0.28);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes term-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.98);
+  }
+}
+
+@keyframes term-out {
+  to {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.98);
+  }
+}
+
+.term__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+}
+
+.term__close {
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: var(--cursor-link);
+}
+
+.term__close:hover {
+  color: var(--accent);
+  border-color: currentColor;
+}
+
+.term__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  cursor: var(--cursor-text);
+}
+
+.term__line {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.term__prompt {
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.term__cmd {
+  font-weight: 600;
+}
+
+.term__muted {
+  color: var(--ink-soft);
+}
+
+.term__error {
+  color: var(--accent);
+}
+
+.term__form {
+  display: flex;
+  gap: 1ch;
+}
+
+.term__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  caret-color: var(--accent);
+  caret-shape: block;
+}
+
+@media (max-width: 700px) {
+  .term {
+    height: min(70svh, 32rem);
+    font-size: 0.8125rem;
+  }
+
+  /* 16px stops phones from zooming in when the input gets focus */
+  .term__input {
+    font-size: 16px;
+  }
+}
+
+/* --- Inner pages -------------------------------------------------------- */
+
+/* Phones: a paper strip behind the corner name and the icons, so the page
+   scrolls under them instead of through them. Big screens have room for
+   the text column to stay clear of the corners, so they don't need it. */
+.topbar {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 19;
+    display: block;
+    height: calc(var(--gutter) + 2.4rem + env(safe-area-inset-top));
+    border-bottom: 1px solid var(--line);
+    background: var(--menu-bg);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
+
+.site-name {
+  position: fixed;
+  top: var(--gutter);
+  left: var(--gutter);
+  z-index: 20;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-stretch: 80%;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.page {
+  width: 100%;
+  max-width: calc(62ch + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: clamp(6rem, 18vh, 10rem) var(--gutter) 10rem;
+}
+
+.page__path {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+
+.page__title {
+  margin: 0.4rem 0 2.5rem;
+  font-size: clamp(2.25rem, 7vw, 4.25rem);
+  font-weight: 700;
+  font-stretch: 80%;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* Reading text: IBM Plex Sans, a touch larger than the mono around it
+   (a proportional face looks smaller at the same size), with a measure
+   kept under ~70 characters */
+.prose,
+.ls__desc {
+  max-width: 68ch;
+  font-family: var(--font-text);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+.prose p + p {
+  margin-top: 1.1em;
+}
+
+/* Code in reading text: back to the mono, scaled down to sit in the line */
+.prose code {
+  padding: 0.05em 0.35em;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font-family: var(--font);
+  font-size: 0.8em;
+  overflow-wrap: anywhere;
+}
+
+.section {
+  margin-top: 3.5rem;
+}
+
+.section__title {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* key / value lists: stack on the about page, links on contact */
+.pairs {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.6rem 2.5ch;
+}
+
+.pairs dt {
+  color: var(--ink-soft);
+}
+
+@media (max-width: 480px) {
+  .pairs:not(.pairs--icons) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .pairs:not(.pairs--icons) dd + dt {
+    margin-top: 0.9rem;
+  }
+}
+
+/* Contact: each label is a brand logo on a tiny terminal screen, with the
+   same scanlines as the project screenshots and a soft phosphor glow in
+   the brand's colour. Pointing at a link lights the screen up. Logos are
+   narrow enough to keep their own column on phones too. */
+.pairs--icons {
+  align-items: center;
+  gap: 0.9rem 1.75ch;
+}
+
+.pairs__logo {
+  --brand: var(--ink);
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--menu-bg);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.pairs__logo--gmail {
+  --brand: #ea4335;
+}
+
+.pairs__logo--github {
+  --brand: #181717;
+}
+
+.pairs__logo--linkedin {
+  --brand: #0a66c2;
+}
+
+.pairs__logo--npm {
+  --brand: #cb3837;
+}
+
+/* GitHub's mark is black; on the dark theme it goes white, as GitHub's own does */
+[data-theme="dark"] .pairs__logo--github {
+  --brand: #ffffff;
+}
+
+.pairs__logo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.07) 2px 3px);
+  pointer-events: none;
+}
+
+.pairs__icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--brand);
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--brand) 40%, transparent));
+}
+
+.pairs__logo:has(+ dd a:hover),
+.pairs__logo:has(+ dd a:focus-visible) {
+  border-color: var(--brand);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--brand) 35%, transparent);
+}
+
+.pairs__logo:has(+ dd a:hover) .pairs__icon,
+.pairs__logo:has(+ dd a:focus-visible) .pairs__icon {
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--brand) 70%, transparent));
+  animation: crt-flicker 0.32s steps(1, end);
+}
+
+/* About, "What I work with": each language, framework and tool is a chip,
+   its logo in its brand colour on the same little screen as the contact
+   logos. about.html sets --brand on each chip (and --brand-dark for the
+   black logos, which go white on the dark theme). */
+.stack {
+  row-gap: 1.25rem;
+}
+
+/* Line the label up with the first row of chips (beside them, not on phones) */
+@media (min-width: 481px) {
+  .stack dt {
+    padding-top: 0.1rem;
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  --chip-color: var(--brand);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.3rem 0.65rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--menu-bg);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  cursor: var(--cursor-arrow);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+[data-theme="dark"] .chip {
+  --chip-color: var(--brand-dark, var(--brand));
+}
+
+.chip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.06) 2px 3px);
+  pointer-events: none;
+}
+
+.chip__icon {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--chip-color);
+  /* --icon-bg fills a logo's cut-out shapes, e.g. the "JS" on JavaScript's square */
+  background: var(--icon-bg, none);
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--chip-color) 40%, transparent));
+}
+
+.chip:hover {
+  border-color: var(--chip-color);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--chip-color) 30%, transparent);
+}
+
+.chip:hover .chip__icon {
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--chip-color) 70%, transparent));
+  animation: crt-flicker 0.32s steps(1, end);
+}
+
+/* "# copied" after the email link, set by js/copy.js */
+.copied {
+  margin-left: 1ch;
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.copied.is-shown {
+  opacity: 1;
+}
+
+/* Phones: a touch tighter, so the addresses fit on one line */
+@media (max-width: 480px) {
+  .pairs--icons {
+    gap: 0.9rem 1.25ch;
+  }
+
+  .pairs--icons dd {
+    font-size: 0.875rem;
+  }
+}
+
+/* A screen catching up: a few quick dips in brightness, then steady */
+@keyframes crt-flicker {
+  0% {
+    opacity: 0.35;
+  }
+  20% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.85;
+  }
+}
+
+.pairs--icons dd {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* --- Projects (ls -l style listing) -------------------------------------- */
+
+.ls {
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.ls__row {
+  display: grid;
+  grid-template-columns: 5ch 1fr;
+  gap: 0.2rem 2ch;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ls__year {
+  color: var(--ink-soft);
+}
+
+.ls__name {
+  font-weight: 600;
+}
+
+/* Name and status badge share the second column; the badge wraps under
+   the name when there isn't room beside it */
+.ls__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.25ch;
+}
+
+/* Status badge: "● public", "● private" or "● ongoing". Used on the
+   projects list and in each project page's facts. */
+.status {
+  --status: var(--ink-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6ch;
+  padding: 0.05rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--status) 45%, transparent);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--status) 8%, transparent);
+  color: var(--status);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.status::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.status--public {
+  --status: #2f7d45;
+}
+
+.status--private {
+  --status: #a8630f;
+}
+
+.status--ongoing {
+  --status: #2c66b0;
+}
+
+[data-theme="dark"] .status--public {
+  --status: #6cc485;
+}
+
+[data-theme="dark"] .status--private {
+  --status: #e2a54f;
+}
+
+[data-theme="dark"] .status--ongoing {
+  --status: #6ea8ec;
+}
+
+/* Ongoing work keeps a slow pulse, like a process still running */
+.status--ongoing::before {
+  animation: status-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  50% {
+    opacity: 0.35;
+    box-shadow: 0 0 2px currentColor;
+  }
+}
+
+.ls__desc,
+.ls__stack {
+  grid-column: 2;
+}
+
+.ls__stack {
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+
+/* --- Project pages (projects/*.html) ------------------------------------- */
+
+.project__lede {
+  font-size: 1.1875rem;
+}
+
+.project__facts {
+  margin-top: 2rem;
+}
+
+.project__list {
+  padding-left: 1.2em;
+}
+
+.project__list li + li {
+  margin-top: 0.5em;
+}
+
+.project__list li::marker {
+  color: var(--accent);
+}
+
+/* Screenshots sit in a small terminal window, like the one the / key opens.
+   Fixed width/height in the HTML so nothing jumps while they load. */
+.shot {
+  margin: 2.5rem 0;
+}
+
+.shot__screen {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: 0 0.75rem 2.5rem var(--shadow);
+}
+
+.shot__bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  padding: 0.5rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-family: var(--font);
+  font-size: 0.6875rem;
+  white-space: nowrap;
+}
+
+.shot__bar > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shot__prompt {
+  color: var(--accent);
+}
+
+/* Tabbed screenshots: buttons in the title bar swap the picture below */
+.shot__bar:has(.shot__tabs) {
+  align-items: center;
+  padding-block: 0.35rem;
+}
+
+.shot__tabs {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.shot__tab {
+  padding: 0.15rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: var(--cursor-link);
+}
+
+.shot__tab:hover {
+  color: var(--accent);
+}
+
+.shot__tab[aria-selected="true"] {
+  border-color: currentColor;
+  color: var(--accent);
+}
+
+.shot__tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Phones: no room for the command, the tabs say it all */
+@media (max-width: 560px) {
+  .shot__bar:has(.shot__tabs) > span:first-child {
+    display: none;
+  }
+}
+
+.shot__view {
+  position: relative;
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--menu-bg);
+}
+
+/* Faint scanlines, so the image reads as being on a screen */
+.shot__view::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.04) 2px 3px);
+  pointer-events: none;
+}
+
+/* When a screenshot scrolls into view it is drawn top to bottom in steps,
+   like a terminal printing it, with a glowing line at the edge. Only runs
+   when js/shots.js adds .shots-anim, so without JS the images just show. */
+.shots-anim .shot__view img {
+  clip-path: inset(0 0 100% 0);
+}
+
+.shots-anim .shot__screen.is-shown img {
+  animation: shot-draw 0.9s steps(18, end) 0.2s forwards;
+}
+
+.shots-anim .shot__screen.is-shown .shot__view::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset-inline: 0;
+  top: 0;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 12px 1px var(--accent);
+  opacity: 0;
+  animation: shot-beam 0.9s steps(18, end) 0.2s;
+}
+
+@keyframes shot-draw {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes shot-beam {
+  from {
+    top: 0;
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  to {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.shot figcaption {
+  margin-top: 0.6rem;
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+
+/* Wide images and image pairs break out of the text column */
+.shot--wide,
+.shots {
+  width: min(calc(100vw - 2 * var(--gutter)), 64rem);
+  margin-left: 50%;
+  translate: -50% 0;
+}
+
+.shots {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-block: 2.5rem;
+}
+
+.shots .shot {
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .shots {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project__back {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.project__back-note {
+  margin-left: 1ch;
+  color: var(--ink-soft);
+}
+
+/* --- 404 ---------------------------------------------------------------- */
+
+.error__cmd {
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
