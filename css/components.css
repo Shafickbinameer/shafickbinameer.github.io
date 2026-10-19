@@ -871,6 +871,19 @@ summary,
   font-size: 0.875rem;
 }
 
+/* Each folder in the path is a link back to it (layout.js) */
+.page__path a {
+  text-decoration-color: var(--line);
+}
+
+.page__path a:hover {
+  text-decoration-color: var(--accent);
+}
+
+.page__path [aria-current] {
+  color: var(--ink);
+}
+
 .page__title {
   margin: 0.4rem 0 2.5rem;
   font-size: clamp(2.25rem, 7vw, 4.25rem);
@@ -1238,6 +1251,102 @@ summary,
   font-size: 0.8125rem;
 }
 
+/* A screenshot on the right of each project: a small terminal window
+   ("$ open ..." title bar, scanlines) like the screens on the project pages,
+   dropped on the paper a little crooked, each row at its own angle. It's a
+   second way to click through, so it's left out of the tab order and screen
+   readers (the name is the real link). */
+.ls__row:has(.ls__thumb) {
+  grid-template-columns: 5ch 1fr 12rem;
+}
+
+.ls__thumb {
+  --tilt: -2.5deg;
+  --nudge-x: 0.35rem;
+  --nudge-y: 0.15rem;
+  grid-column: 3;
+  grid-row: 1 / span 3;
+  align-self: start;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: 0 0.5rem 1.5rem var(--shadow);
+  color: inherit;
+  text-decoration: none;
+  transform: translate(var(--nudge-x), var(--nudge-y)) rotate(var(--tilt));
+  transition:
+    transform 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    box-shadow 0.35s var(--ease);
+}
+
+.ls__row:nth-child(2n) .ls__thumb {
+  --tilt: 1.75deg;
+  --nudge-x: -0.4rem;
+  --nudge-y: 0.5rem;
+}
+
+.ls__row:nth-child(3n) .ls__thumb {
+  --tilt: -1deg;
+  --nudge-x: 0.6rem;
+  --nudge-y: -0.1rem;
+}
+
+/* Smaller title bar than the full-size screens */
+.ls__thumb .shot__bar {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.625rem;
+}
+
+.ls__thumb .shot__view {
+  display: block;
+}
+
+.ls__thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top left;
+  background: var(--menu-bg);
+}
+
+/* Pointing at the project's name or its picture straightens it and
+   lifts it off the paper */
+.ls__thumb:hover,
+.ls__row:has(.ls__name:hover, .ls__name:focus-visible) .ls__thumb {
+  border-color: var(--accent);
+  box-shadow: 0 0.9rem 2rem var(--shadow);
+  transform: translateY(-3px) rotate(0deg);
+}
+
+.ls__thumb:hover .shot__bar > span:first-child {
+  color: var(--ink);
+}
+
+/* Phones: the picture goes under the text, full width */
+@media (max-width: 560px) {
+  .ls__row:has(.ls__thumb) {
+    grid-template-columns: 5ch 1fr;
+  }
+
+  /* A gentler tilt at full width, so the corners stay on screen */
+  .ls__row .ls__thumb {
+    grid-column: 2;
+    grid-row: auto;
+    margin-top: 0.9rem;
+    --tilt: -1deg;
+    --nudge-x: 0;
+    --nudge-y: 0;
+  }
+
+  .ls__row:nth-child(2n) .ls__thumb {
+    --tilt: 0.8deg;
+  }
+}
+
 /* --- Project pages (projects/*.html) ------------------------------------- */
 
 .project__lede {
@@ -1433,15 +1542,75 @@ summary,
   }
 }
 
-.project__back {
+/* --- Where to next? (added by layout.js) --------------------------------- */
+
+/* The end of every page: a few "cd" commands to the pages worth seeing
+   next, each with its "# note". Commands and notes line up in two columns
+   (subgrid); on phones the note goes under its command. */
+.next {
   margin-top: 4rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--line);
 }
 
-.project__back-note {
-  margin-left: 1ch;
+.next__title {
+  margin-bottom: 0.75rem;
   color: var(--ink-soft);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.next__list {
+  display: grid;
+  grid-template-columns: 1ch auto 1fr;
+  column-gap: 1.5ch;
+  padding: 0;
+  list-style: none;
+}
+
+.next__list li,
+.next__link {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+}
+
+.next__link {
+  padding: 0.3rem 0;
+  text-decoration: none;
+}
+
+/* Same ">" as the menu: shows on the command you point at */
+.next__link::before {
+  content: ">";
+  color: transparent;
+}
+
+.next__link:hover::before,
+.next__link:focus-visible::before {
+  color: var(--accent);
+}
+
+.next__cmd {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 0.3em;
+}
+
+.next__note {
+  color: var(--ink-soft);
+}
+
+@media (max-width: 700px) {
+  .next__list {
+    grid-template-columns: 1ch 1fr;
+  }
+
+  .next__note {
+    grid-column: 2;
+    font-size: 0.8125rem;
+  }
 }
 
 /* --- 404 ---------------------------------------------------------------- */

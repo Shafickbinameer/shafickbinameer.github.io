@@ -5,6 +5,9 @@
  *   name is the page)
  * - The top-right icons: terminal, sound, theme
  * - The menu
+ * - The path under the corner name, with each folder in it a link
+ * - "Where to next?" at the end of each page, so nobody is left needing
+ *   to find the menu to move on (not on home or 404, which have their own)
  * - The boot screen, on the first page of a visit (second part of this file)
  *
  * Each page loads this as a plain script (not deferred) at the end of
@@ -20,14 +23,26 @@
  *   data-root="../"           how to get back to the top folder
  *   data-section="projects"   which menu item to keep marked
  *   data-path="~/shafick/projects/portfolio"   the path the menu shows
+ *
+ * To add a project page: also add its name to PROJECTS below, so the
+ * projects either side of it link to it.
  */
 (function () {
   const PAGES = [
-    { name: "home", href: "index.html", key: "1" },
-    { name: "about", href: "about.html", key: "2" },
-    { name: "projects", href: "projects.html", key: "3" },
-    { name: "contact", href: "contact.html", key: "4" },
+    { name: "home", href: "index.html", key: "1", hint: "start here" },
+    { name: "about", href: "about.html", key: "2", hint: "who I am" },
+    { name: "projects", href: "projects.html", key: "3", hint: "things I've built" },
+    { name: "contact", href: "contact.html", key: "4", hint: "say hello" },
   ];
+  // Project pages (projects/<name>.html), in the order projects.html lists
+  // them: the end of each one links to the next and previous
+  const PROJECTS = ["report-studio", "bmh-learning-portfolio"];
+  // Which pages "Where to next?" suggests on each top-level page, in order
+  const NEXT = {
+    about: ["projects", "contact"],
+    projects: ["about", "contact"],
+    contact: ["projects", "about"],
+  };
   const NAME = "Mohammed Shafick";
   const HOME_PATH = "~/shafick";
 
@@ -96,6 +111,67 @@
 
   // Icons and menu go where this script sits
   document.currentScript.insertAdjacentHTML("beforebegin", tools + menu);
+
+  /* --- Path: each folder in it opens that page ---------------------------- */
+
+  // ~/shafick/projects/report-studio -> "~/shafick" and "projects" are links,
+  // the last part is the page you're on. Not on 404, which shows a command.
+  const pathEl = document.querySelector("p.page__path:not(.error__cmd)");
+  if (pathEl) {
+    const parts = fullPath.replace(HOME_PATH, "").split("/").filter(Boolean);
+    const crumbs = parts.map((part, i) => {
+      const target = PAGES.find((p) => p.name === part);
+      return i < parts.length - 1 && target
+        ? `<a href="${root}${target.href}">${part}</a>`
+        : `<span aria-current="page">${part}</span>`;
+    });
+    const nav = document.createElement("nav");
+    nav.className = "page__path";
+    nav.setAttribute("aria-label", "You are here");
+    nav.innerHTML = [`<a href="${root}index.html">${HOME_PATH}</a>`, ...crumbs].join("/");
+    pathEl.replaceWith(nav);
+  }
+
+  /* --- Where to next? ----------------------------------------------------- */
+
+  const pageHref = (name) => root + PAGES.find((p) => p.name === name).href;
+  const hintFor = (name) => PAGES.find((p) => p.name === name).hint;
+  let next = [];
+
+  if (page === "project") {
+    // A project page: the projects either side, all projects, then contact
+    const here = PROJECTS.indexOf(fullPath.split("/").pop());
+    const after = here === -1 ? null : PROJECTS[here + 1];
+    const before = here === -1 ? null : PROJECTS[here - 1];
+    if (after) next.push({ cmd: `cd ../${after}`, href: `${after}.html`, note: "next project" });
+    if (before) next.push({ cmd: `cd ../${before}`, href: `${before}.html`, note: "previous project" });
+    next.push({ cmd: "cd ..", href: pageHref("projects"), note: "all projects" });
+    next.push({ cmd: "cd ../../contact", href: pageHref("contact"), note: hintFor("contact") });
+  } else if (NEXT[page]) {
+    next = NEXT[page].map((name) => ({ cmd: `cd ../${name}`, href: pageHref(name), note: hintFor(name) }));
+  }
+
+  const main = document.querySelector("main");
+  if (next.length && main) {
+    const rows = next
+      .map(
+        (n) =>
+          `<li><a class="next__link" href="${n.href}">` +
+          `<span class="next__cmd">${n.cmd}</span><span class="next__note"># ${n.note}</span></a></li>`
+      )
+      .join("\n        ");
+
+    // data-reveal: fades in with the rest of the page (main.js)
+    main.insertAdjacentHTML(
+      "beforeend",
+      `<nav class="next" aria-labelledby="next-title" data-reveal>
+        <h2 class="next__title" id="next-title">where to next?</h2>
+        <ul class="next__list" role="list">
+        ${rows}
+        </ul>
+      </nav>`
+    );
+  }
 })();
 
 /*
